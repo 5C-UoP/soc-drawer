@@ -28,34 +28,36 @@ class SocietyItemDetailsView extends StatelessWidget {
       ),
       body: DefaultTabController(
         length: 4,
-        initialIndex: 1,
+        initialIndex: 0,
         child: Column(
           children: [
-            ListTile(leading: Image.asset(soc.icon), title: Text(soc.name)),
-            TabBar(
+            ListTile(
+              leading: Image.asset(soc.icon),
+              title: Text(soc.name),
+              trailing: soc.joined ? null : const Text("Join"),
+            ),
+            const TabBar(
               tabs: [
                 Tab(
                   text: "About",
+                  icon: Icon(Icons.info_outline),
                 ),
-                Tab(
-                  text: "Events",
-                ),
-                Tab(
-                  text: "Products",
-                ),
-                Tab(
-                  text: "Committee",
-                ),
+                Tab(text: "Events", icon: Icon(Icons.event)),
+                Tab(text: "Products", icon: Icon(Icons.monetization_on)),
+                Tab(text: "Committee", icon: Icon(Icons.people)),
               ],
             ),
-            const Expanded(
-              child: TabBarView(
-                children: [
-                  Center(child: Text("About")),
-                  Center(child: Text("Events")),
-                  Center(child: Text("Products")),
-                  Center(child: Text("Committee")),
-                ],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TabBarView(
+                  children: [
+                    Text(soc.description),
+                    const Center(child: Text("Events")),
+                    const Center(child: Text("Products")),
+                    const Center(child: Text("Committee")),
+                  ],
+                ),
               ),
             ),
           ],
