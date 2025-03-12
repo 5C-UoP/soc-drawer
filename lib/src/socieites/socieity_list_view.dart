@@ -4,8 +4,8 @@ import 'socieity_details_view.dart';
 import 'society.dart';
 
 /// Displays a list of Socieities.
-class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
+class SocietyItemListView extends StatelessWidget {
+  const SocietyItemListView({
     super.key,
     this.items = const [
       Socieity(1, "Aviation", 'assets/images/societies/aviation.png', true),
@@ -83,9 +83,10 @@ class SampleItemListView extends StatelessWidget {
                       // Navigate to the details page. If the user leaves and returns to
                       // the app after it has been killed while running in the
                       // background, the navigation stack is restored.
-                      Navigator.restorablePushNamed(
+                      Navigator.pushNamed(
                         context,
-                        SampleItemDetailsView.routeName,
+                        SocietyItemDetailsView.routeName,
+                        arguments: {'society': item, 'e': 'a'},
                       );
                     }),
               ],
