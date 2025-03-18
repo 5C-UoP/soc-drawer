@@ -1,0 +1,1 @@
+ C:\\Users\\overa\\IdeaProjects\\soc-drawer\\.dart_tool\\flutter_gen\\gen_l10n\\app_localizations_en.dart C:\\Users\\overa\\IdeaProjects\\soc-drawer\\.dart_tool\\flutter_gen\\gen_l10n\\app_localizations.dart:  C:\\Users\\overa\\IdeaProjects\\soc-drawer\\l10n.yaml C:\\Users\\overa\\IdeaProjects\\soc-drawer\\lib/src/localization\\app_en.arb
