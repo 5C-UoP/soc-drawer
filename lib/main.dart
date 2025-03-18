@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/settings/settings_view.dart';
+import 'package:socdrawer/src/socieites/socieity_details_view.dart';
+import 'package:socdrawer/src/socieites/socieity_list_view.dart';
 
 import 'src/login.dart';
 import 'src/event_create.dart';
@@ -17,9 +20,25 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(
-    const MaterialApp(
-      home: EventCreate(),
-    ),
-  );
+  runApp(MaterialApp(
+    restorationScopeId: 'app',
+    home: const EventCreate(),
+    onGenerateRoute: (RouteSettings routeSettings) {
+      return MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          switch (routeSettings.name) {
+            case SettingsView.routeName:
+              return SettingsView(controller: settingsController);
+            case SocietyItemDetailsView.routeName:
+              final args = routeSettings.arguments
+                  as Map<String, dynamic>?; // Extract the arguments
+              return SocietyItemDetailsView(args: args);
+            case SocietyItemListView.routeName:
+            default:
+              return const SocietyItemListView();
+          }
+        },
+      );
+    },
+  ));
 }
