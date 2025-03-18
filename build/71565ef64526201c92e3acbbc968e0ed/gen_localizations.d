@@ -1,1 +1,0 @@
- /home/sam/Code/soc-drawer/soc-drawer/.dart_tool/flutter_gen/gen_l10n/app_localizations_en.dart /home/sam/Code/soc-drawer/soc-drawer/.dart_tool/flutter_gen/gen_l10n/app_localizations.dart:  /home/sam/Code/soc-drawer/soc-drawer/l10n.yaml /home/sam/Code/soc-drawer/soc-drawer/lib/src/localization/app_en.arb

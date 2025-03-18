@@ -6,6 +6,7 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
 import 'socieites/socieity_details_view.dart';
 import 'socieites/socieity_list_view.dart';
+import 'calendarView.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           // returns to the app after it has been killed while running in the
           // background.
           restorationScopeId: 'app',
+          debugShowCheckedModeBanner: false,
 
           // Provide the generated AppLocalizations to the MaterialApp. This
           // allows descendant Widgets to display the correct translations
@@ -74,6 +76,7 @@ class MyApp extends StatelessWidget {
                   case SocietyItemListView.routeName:
                   default:
                     return const SocietyItemListView();
+                    return CalendarView();
                 }
               },
             );
