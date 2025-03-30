@@ -55,7 +55,18 @@ class SocietyItemDetailsView extends StatelessWidget {
                     Text(soc.description),
                     const Center(child: Text("Events")),
                     const Center(child: Text("Products")),
-                    const Center(child: Text("Committee")),
+                    ListView.builder(
+                      itemCount: soc.committee.length,
+                      itemBuilder: (context, index) {
+                        final memberKey = soc.committee.keys.elementAt(index);
+                        final member = soc.committee[memberKey];
+                        return ListTile(
+                          leading: const Icon(Icons.person),
+                          title: Text(memberKey),
+                          subtitle: Text(member),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

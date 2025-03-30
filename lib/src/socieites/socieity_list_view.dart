@@ -8,11 +8,59 @@ class SocietyItemListView extends StatelessWidget {
   const SocietyItemListView({
     super.key,
     this.items = const [
-      Socieity(1, "Aviation", 'assets/images/societies/aviation.png', true),
-      Socieity(2, "IT Soc", 'assets/images/societies/IT.png', true),
-      Socieity(3, "Pool", 'assets/images/societies/pool.jpg', false),
-      Socieity(5, "Pool", 'assets/images/societies/pool.jpg', false),
-      Socieity(4, "Jolly Roger", 'assets/images/societies/JR.png', true)
+      Socieity(
+          1,
+          "Aviation",
+          'assets/images/societies/aviation.png',
+          true,
+          {
+            "President": "Sam Blewitt",
+            "Treasurer": "Abigail Teodoro",
+            "Social Secretary": "Aisha Kabiru Bala",
+            "Secretary": "Mark Kiss"
+          },
+          description: "This is a test society"),
+      Socieity(
+          2,
+          "IT Soc",
+          'assets/images/societies/IT.png',
+          true,
+          {
+            "President": "Michael Parker",
+            "Treasurer": "Anna Rejlová",
+            "Media Secretary": "Anna Kennewell",
+            "Events Secretary": "Sam Blewitt",
+            "Welfare Officer": "Scarlett Larder"
+          },
+          description: "IT Society"),
+      Socieity(
+          3,
+          "Pool",
+          'assets/images/societies/pool.jpg',
+          false,
+          {
+            "President": "Edward Ponting",
+            "Vice President": "Luke Barton",
+            "Treasurer": "Nataniel Pietraszko",
+            "Welfare Secretary": "Raene Abley",
+            "Communications Officer": "Caetana De Santo Antonio Fino Nina"
+          },
+          description: "Pool Society"),
+      Socieity(
+          4,
+          "Jolly Roger",
+          'assets/images/societies/JR.png',
+          true,
+          {
+            "Captain": "Marie Wheatley",
+            "Firstmate": "Ben Allard",
+            "Gunner": "Tom Leake",
+            "Quatermaster": "Isaac Payne",
+            "Navigator": "Saul Rowe",
+            "Botswain": "Brodey Evans",
+            "Parrot": "Anna Kennewell"
+          },
+          description: "Pirate-themed Society")
     ],
   });
 
