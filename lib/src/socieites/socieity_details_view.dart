@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Displays detailed information about a SampleItem.
 class SocietyItemDetailsView extends StatelessWidget {
@@ -34,7 +35,21 @@ class SocietyItemDetailsView extends StatelessWidget {
             ListTile(
               leading: Image.asset(soc.icon),
               title: Text(soc.name),
-              trailing: soc.joined ? null : const Text("Join"),
+              trailing: GestureDetector(
+                onTap: () async {
+                  final url =
+                      "https://upsu.net/groups/${soc.code}/${soc.name.toString().toLowerCase().replaceAll(" ", "-")}";
+                  if (url != null) {
+                    print("launching url");
+                    await launchUrl(Uri.parse(url));
+                    print("launched");
+                  }
+                },
+                child: Text(
+                  soc.joined ? "Open" : "Join",
+                  style: const TextStyle(color: Colors.blue),
+                ),
+              ),
             ),
             const TabBar(
               tabs: [
@@ -54,7 +69,9 @@ class SocietyItemDetailsView extends StatelessWidget {
                   children: [
                     Text(soc.description),
                     const Center(child: Text("Events")),
-                    const Center(child: Text("Products")),
+                    const Center(
+                        child: Text(
+                            "No products on Sale")), // FIXME - Remove tab if no products?
                     ListView.builder(
                       itemCount: soc.committee.length,
                       itemBuilder: (context, index) {

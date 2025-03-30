@@ -19,6 +19,7 @@ class SocietyItemListView extends StatelessWidget {
             "Social Secretary": "Aisha Kabiru Bala",
             "Secretary": "Mark Kiss"
           },
+          "8HRQT",
           description: "This is a test society"),
       Socieity(
           2,
@@ -32,6 +33,7 @@ class SocietyItemListView extends StatelessWidget {
             "Events Secretary": "Sam Blewitt",
             "Welfare Officer": "Scarlett Larder"
           },
+          "BPX8J",
           description: "IT Society"),
       Socieity(
           3,
@@ -45,10 +47,11 @@ class SocietyItemListView extends StatelessWidget {
             "Welfare Secretary": "Raene Abley",
             "Communications Officer": "Caetana De Santo Antonio Fino Nina"
           },
+          "4BJWD",
           description: "Pool Society"),
       Socieity(
           4,
-          "Jolly Roger",
+          "Jolly Roger Society",
           'assets/images/societies/JR.png',
           true,
           {
@@ -60,6 +63,7 @@ class SocietyItemListView extends StatelessWidget {
             "Botswain": "Brodey Evans",
             "Parrot": "Anna Kennewell"
           },
+          "FGF24",
           description: "Pirate-themed Society")
     ],
   });
