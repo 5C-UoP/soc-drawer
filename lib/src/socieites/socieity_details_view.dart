@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class SocietyItemDetailsView extends StatelessWidget {
   const SocietyItemDetailsView({super.key, required this.args});
 
-  static const routeName = '/sample_item';
+  static const routeName = '/society_view';
   final Map<String, dynamic>? args;
 
   @override
@@ -28,7 +28,7 @@ class SocietyItemDetailsView extends StatelessWidget {
         title: const Text("Society Information"),
       ),
       body: DefaultTabController(
-        length: 4,
+        length: 3,
         initialIndex: 0,
         child: Column(
           children: [
@@ -58,21 +58,26 @@ class SocietyItemDetailsView extends StatelessWidget {
                   icon: Icon(Icons.info_outline),
                 ),
                 Tab(text: "Events", icon: Icon(Icons.event)),
-                Tab(text: "Products", icon: Icon(Icons.monetization_on)),
                 Tab(text: "Committee", icon: Icon(Icons.people)),
               ],
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: TabBarView(
-                  children: [
-                    Text(soc.description),
-                    const Center(child: Text("Events")),
-                    const Center(
-                        child: Text(
-                            "No products on Sale")), // FIXME - Remove tab if no products?
-                    ListView.builder(
+                child: TabBarView(children: [
+                  // We can't have SingleChildScrollView otherwise the tabs would scroll too
+                  SingleChildScrollView(
+                    child: Text(soc.description),
+                  ),
+                  const SingleChildScrollView(
+                    child: Center(
+                      child: Text("This society has no events yet :("),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: soc.committee.length,
                       itemBuilder: (context, index) {
                         final memberKey = soc.committee.keys.elementAt(index);
@@ -84,8 +89,8 @@ class SocietyItemDetailsView extends StatelessWidget {
                         );
                       },
                     ),
-                  ],
-                ),
+                  ),
+                ]),
               ),
             ),
           ],

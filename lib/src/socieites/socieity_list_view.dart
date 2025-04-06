@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/socieites/example_socs.dart';
 
 import 'socieity_details_view.dart';
 import 'society.dart';
@@ -7,65 +8,7 @@ import 'society.dart';
 class SocietyItemListView extends StatelessWidget {
   const SocietyItemListView({
     super.key,
-    this.items = const [
-      Socieity(
-          1,
-          "Aviation",
-          'assets/images/societies/aviation.png',
-          true,
-          {
-            "President": "Sam Blewitt",
-            "Treasurer": "Abigail Teodoro",
-            "Social Secretary": "Aisha Kabiru Bala",
-            "Secretary": "Mark Kiss"
-          },
-          "8HRQT",
-          description: "This is a test society"),
-      Socieity(
-          2,
-          "IT Soc",
-          'assets/images/societies/IT.png',
-          true,
-          {
-            "President": "Michael Parker",
-            "Treasurer": "Anna Rejlová",
-            "Media Secretary": "Anna Kennewell",
-            "Events Secretary": "Sam Blewitt",
-            "Welfare Officer": "Scarlett Larder"
-          },
-          "BPX8J",
-          description: "IT Society"),
-      Socieity(
-          3,
-          "Pool",
-          'assets/images/societies/pool.jpg',
-          false,
-          {
-            "President": "Edward Ponting",
-            "Vice President": "Luke Barton",
-            "Treasurer": "Nataniel Pietraszko",
-            "Welfare Secretary": "Raene Abley",
-            "Communications Officer": "Caetana De Santo Antonio Fino Nina"
-          },
-          "4BJWD",
-          description: "Pool Society"),
-      Socieity(
-          4,
-          "Jolly Roger Society",
-          'assets/images/societies/JR.png',
-          true,
-          {
-            "Captain": "Marie Wheatley",
-            "Firstmate": "Ben Allard",
-            "Gunner": "Tom Leake",
-            "Quatermaster": "Isaac Payne",
-            "Navigator": "Saul Rowe",
-            "Botswain": "Brodey Evans",
-            "Parrot": "Anna Kennewell"
-          },
-          "FGF24",
-          description: "Pirate-themed Society")
-    ],
+    this.items = socieities,
   });
 
   static const routeName = '/societies';
@@ -138,7 +81,7 @@ class SocietyItemListView extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         SocietyItemDetailsView.routeName,
-                        arguments: {'society': item, 'e': 'a'},
+                        arguments: {'society': item},
                       );
                     }),
               ],
