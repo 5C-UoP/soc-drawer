@@ -2,18 +2,22 @@ import 'package:socdrawer/src/socieites/society.dart';
 
 const socieities = [
   Socieity(
-      1,
-      "Aviation",
-      'assets/images/societies/aviation.png',
-      true,
-      {
-        "President": "Sam Blewitt",
-        "Treasurer": "Abigail Teodoro",
-        "Social Secretary": "Aisha Kabiru Bala",
-        "Secretary": "Mark Kiss"
-      },
-      "8HRQT",
-      description: "This is a test society"),
+    1,
+    "Aviation",
+    'assets/images/societies/aviation.png',
+    true,
+    {
+      "President": "Sam Blewitt",
+      "Treasurer": "Abigail Teodoro",
+      "Social Secretary": "Aisha Kabiru Bala",
+      "Secretary": "Mark Kiss"
+    },
+    "8HRQT",
+    description: "UoP Aviation, coming 26/27",
+    discordCode: 'aVZWpf47gQ',
+    instagramHandle: 'uopaviation',
+    mail: "aviationsoc@upsu.net",
+  ),
   Socieity(
       2,
       "IT Soc",
@@ -46,7 +50,11 @@ const socieities = [
 
           The best part is that membership is FREE! We welcome all students from across the university to get involved for whatever reason, JUST GET INVOLVED, GET COMPUTING!!!
 
-          Email - ITsoc@upsu.net"""),
+          Email - ITsoc@upsu.net""",
+      discordCode: 'WsprV4sDZs',
+      mail: 'ITsoc@upsu.net',
+      instagramHandle: 'theitsoc',
+      website: 'https://itsociety.co.uk'),
   Socieity(
       3,
       "Pool",
@@ -70,7 +78,9 @@ Please join our WhatsApp group chat and follow us on Instagram (linked below) fo
 
 https://chat.whatsapp.com/GIrp2HRJEen6rWn6DQM8hg
 
-https://www.instagram.com/uop_poolsoc?igsh=eWh5Mmd0aHh3eWZy"""),
+https://www.instagram.com/uop_poolsoc?igsh=eWh5Mmd0aHh3eWZy""",
+      instagramHandle: "uop_poolsoc",
+      whatsapp: "GIrp2HRJEen6rWn6DQM8hg"),
   Socieity(
       4,
       "Jolly Roger Society",
@@ -87,5 +97,7 @@ https://www.instagram.com/uop_poolsoc?igsh=eWh5Mmd0aHh3eWZy"""),
       },
       "FGF24",
       description:
-          "Ahoy! Welcome to Portsmouth's Jolly Roger Society, a pirate themed society that runs chill social events! ")
+          "Ahoy! Welcome to Portsmouth's Jolly Roger Society, a pirate themed society that runs chill social events! ",
+      discordCode: '73y5q5T7Dt',
+      instagramHandle: 'uop_jollyroger')
 ];

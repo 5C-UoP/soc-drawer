@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/components/social_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Displays detailed information about a SampleItem.
@@ -39,11 +40,7 @@ class SocietyItemDetailsView extends StatelessWidget {
                 onTap: () async {
                   final url =
                       "https://upsu.net/groups/${soc.code}/${soc.name.toString().toLowerCase().replaceAll(" ", "-")}";
-                  if (url != null) {
-                    print("launching url");
-                    await launchUrl(Uri.parse(url));
-                    print("launched");
-                  }
+                  await launchUrl(Uri.parse(url));
                 },
                 child: Text(
                   soc.joined ? "Open" : "Join",
@@ -67,7 +64,24 @@ class SocietyItemDetailsView extends StatelessWidget {
                 child: TabBarView(children: [
                   // We can't have SingleChildScrollView otherwise the tabs would scroll too
                   SingleChildScrollView(
-                    child: Text(soc.description),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(soc.description),
+                        if (soc.discordCode != null)
+                          DiscordCard(
+                            code: soc.discordCode,
+                          ),
+                        if (soc.instagramHandle != null)
+                          InstagramCard(
+                            code: soc.instagramHandle,
+                          ),
+                        if (soc.whatsapp != null)
+                          WhatsappCard(code: soc.whatsapp),
+                        if (soc.mail != null) EmailCard(code: soc.mail),
+                        if (soc.website != null) WebsiteCard(code: soc.website)
+                      ],
+                    ),
                   ),
                   const SingleChildScrollView(
                     child: Center(

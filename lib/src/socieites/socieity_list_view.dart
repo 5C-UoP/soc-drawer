@@ -8,12 +8,12 @@ import 'society.dart';
 class SocietyItemListView extends StatelessWidget {
   const SocietyItemListView({
     super.key,
-    this.items = socieities,
+    List<Socieity>? items,
   });
 
   static const routeName = '/societies';
 
-  final List<Socieity> items;
+  final List<Socieity> items = socieities;
 
   @override
   Widget build(BuildContext context) {

@@ -24,7 +24,7 @@ void main() async {
   // SettingsView.
   runApp(MaterialApp(
     restorationScopeId: 'app',
-    home: const SocietyItemListView(),
+    home: SocietyItemListView(),
     onGenerateRoute: (RouteSettings routeSettings) {
       return MaterialPageRoute<void>(
         builder: (BuildContext context) {
@@ -37,7 +37,7 @@ void main() async {
               return SocietyItemDetailsView(args: args);
             case SocietyItemListView.routeName:
             default:
-              return const SocietyItemListView();
+              return SocietyItemListView();
           }
         },
       );
