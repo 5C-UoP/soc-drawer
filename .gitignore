@@ -39,6 +39,7 @@
 
 # Flutter repo-specific
 /bin/cache/
+/bin/cache/README.md
 /bin/internal/bootstrap.bat
 /bin/internal/bootstrap.sh
 /bin/internal/engine.realm
