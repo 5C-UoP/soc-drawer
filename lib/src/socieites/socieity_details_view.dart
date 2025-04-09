@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/components/social_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Displays detailed information about a SampleItem.
 class SocietyItemDetailsView extends StatelessWidget {
   const SocietyItemDetailsView({super.key, required this.args});
 
-  static const routeName = '/sample_item';
+  static const routeName = '/society_view';
   final Map<String, dynamic>? args;
 
   @override
@@ -27,14 +29,24 @@ class SocietyItemDetailsView extends StatelessWidget {
         title: const Text("Society Information"),
       ),
       body: DefaultTabController(
-        length: 4,
+        length: 3,
         initialIndex: 0,
         child: Column(
           children: [
             ListTile(
               leading: Image.asset(soc.icon),
               title: Text(soc.name),
-              trailing: soc.joined ? null : const Text("Join"),
+              trailing: GestureDetector(
+                onTap: () async {
+                  final url =
+                      "https://upsu.net/groups/${soc.code}/${soc.name.toString().toLowerCase().replaceAll(" ", "-")}";
+                  await launchUrl(Uri.parse(url));
+                },
+                child: Text(
+                  soc.joined ? "Open" : "Join",
+                  style: const TextStyle(color: Colors.blue),
+                ),
+              ),
             ),
             const TabBar(
               tabs: [
@@ -43,21 +55,56 @@ class SocietyItemDetailsView extends StatelessWidget {
                   icon: Icon(Icons.info_outline),
                 ),
                 Tab(text: "Events", icon: Icon(Icons.event)),
-                Tab(text: "Products", icon: Icon(Icons.monetization_on)),
                 Tab(text: "Committee", icon: Icon(Icons.people)),
               ],
             ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: TabBarView(
-                  children: [
-                    Text(soc.description),
-                    const Center(child: Text("Events")),
-                    const Center(child: Text("Products")),
-                    const Center(child: Text("Committee")),
-                  ],
-                ),
+                child: TabBarView(children: [
+                  // We can't have SingleChildScrollView otherwise the tabs would scroll too
+                  SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(soc.description),
+                        if (soc.discordCode != null)
+                          DiscordCard(
+                            code: soc.discordCode,
+                          ),
+                        if (soc.instagramHandle != null)
+                          InstagramCard(
+                            code: soc.instagramHandle,
+                          ),
+                        if (soc.whatsapp != null)
+                          WhatsappCard(code: soc.whatsapp),
+                        if (soc.mail != null) EmailCard(code: soc.mail),
+                        if (soc.website != null) WebsiteCard(code: soc.website)
+                      ],
+                    ),
+                  ),
+                  const SingleChildScrollView(
+                    child: Center(
+                      child: Text("This society has no events yet :("),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: soc.committee.length,
+                      itemBuilder: (context, index) {
+                        final memberKey = soc.committee.keys.elementAt(index);
+                        final member = soc.committee[memberKey];
+                        return ListTile(
+                          leading: const Icon(Icons.person),
+                          title: Text(memberKey),
+                          subtitle: Text(member),
+                        );
+                      },
+                    ),
+                  ),
+                ]),
               ),
             ),
           ],

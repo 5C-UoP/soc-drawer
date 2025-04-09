@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:socdrawer/src/eventsView.dart';
-import 'package:socdrawer/src/sample_feature/sample_item.dart';
-import 'package:socdrawer/src/sample_feature/sample_item_list_view.dart';
+import 'package:socdrawer/src/socieites/socieity_list_view.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import 'event.dart';
 
 class CalendarView extends StatefulWidget {
@@ -28,7 +28,8 @@ class CalendarViewState extends State<CalendarView> {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => SampleItemListView()),
+                  MaterialPageRoute(
+                      builder: (context) => SocietyItemListView()),
                 );
               },
               icon: const Icon(Icons.arrow_back))
@@ -111,8 +112,7 @@ class CalendarViewState extends State<CalendarView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment
-                          .spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text(
                           "Events:",
