@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/event.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'event.dart';
 
 class EventCreate extends StatefulWidget {
   const EventCreate({super.key});
@@ -10,6 +13,15 @@ class EventCreate extends StatefulWidget {
 }
 
 class EventCreateState extends State<EventCreate> {
+  String eventName = '';
+  String eventDescription = '';
+  String eventLocation = '';
+  String eventSociety = '';
+  DateTime eventDateTime = DateTime.now();
+  bool repeatChecked = false;
+  final TextEditingController eventDescController = TextEditingController();
+  final TextEditingController eventNameController = TextEditingController();
+  // final newEvent = Event();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +34,7 @@ class EventCreateState extends State<EventCreate> {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),
-        title: const Text(
-          "Event Creation",
-          style: TextStyle(
-            fontWeight: FontWeight.w400,
-            fontStyle: FontStyle.normal,
-            fontSize: 14,
-            color: Color(0xff000000),
-          ),
-        ),
+        title: const Text("Event Creation"),
         leading: const Icon(
           Icons.arrow_back,
           color: Color(0xff212435),
@@ -48,41 +52,70 @@ class EventCreateState extends State<EventCreate> {
               overflow: TextOverflow.clip,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                fontStyle: FontStyle.normal,
                 fontSize: 20,
-                color: Color(0xff000000),
               ),
             ),
           ),
-          const Align(alignment: Alignment(0.0, -0.7), child: DatePicker()),
           Align(
-            alignment: const Alignment(0.8, 0.2),
-            child: Checkbox(
-              onChanged: (value) {},
-              activeColor: Color(0xff3a57e8),
-              autofocus: false,
-              checkColor: Color(0xffffffff),
-              hoverColor: Color(0x42000000),
-              splashRadius: 20,
-              value: false,
+            alignment: const Alignment(0.0, -0.7),
+            child: DatePicker(
+              onDateSelected: (DateTime selectedDate) {
+                setState(() {
+                  eventDateTime = selectedDate;
+                });
+              },
             ),
           ),
+          Align(
+            alignment: const Alignment(0.1, 0.6),
+            child: Checkbox(
+              value: repeatChecked,
+              splashRadius: 20,
+              onChanged: (bool? value) {
+                setState(() {
+                  repeatChecked = value!;
+                });
+              },
+            ),
+          ),
+          // Name TextField
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Align(
+              alignment: const Alignment(0.0, -0.5),
+              child: TextField(
+                controller: eventNameController,
+                obscureText: false,
+                textAlign: TextAlign.left,
+                maxLines: 1,
+                maxLength: 50,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                    borderSide:
+                        const BorderSide(color: Color(0xff000000), width: 1),
+                  ),
+                  hintText: "Name of Event:",
+                  filled: true,
+                  fillColor: Color(0xfff2f2f2),
+                  isDense: false,
+                  contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
+                ),
+              ),
+            ),
+          ),
+
+          // Description TextField
           Padding(
             padding: const EdgeInsets.all(20),
             child: Align(
               alignment: const Alignment(0.0, -0.2),
               child: TextField(
-                controller: TextEditingController(),
+                controller: eventDescController,
                 obscureText: false,
                 textAlign: TextAlign.left,
                 maxLines: 5,
                 maxLength: 200,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 14,
-                  color: Color(0xff000000),
-                ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(4.0),
@@ -90,14 +123,8 @@ class EventCreateState extends State<EventCreate> {
                         const BorderSide(color: Color(0xff000000), width: 1),
                   ),
                   hintText: "Brief Description of Event:",
-                  hintStyle: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 14,
-                    color: Color(0xff000000),
-                  ),
                   filled: true,
-                  fillColor: Color(0xfff2f2f3),
+                  fillColor: Color(0xfff2f2f2),
                   isDense: false,
                   contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
                 ),
@@ -105,18 +132,36 @@ class EventCreateState extends State<EventCreate> {
             ),
           ),
           const Align(
-            alignment: Alignment(0.4, 0.2),
+            alignment: Alignment(0, 0.6),
             child: Text(
               "Repeat Weekly?",
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.clip,
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontStyle: FontStyle.normal,
-                fontSize: 14,
-                color: Color(0xff000000),
-              ),
             ),
+          ),
+          Align(
+            alignment: const Alignment(0, 0.8),
+            child: MaterialButton(
+                onPressed: () {
+                  setState(() {
+                    eventName = eventNameController.text;
+                    eventDescription = eventDescController.text;
+                    // eventDateTime =
+                  });
+                  final newEvent = Event(
+                    name: eventName,
+                    description: eventDescription,
+                    location: eventLocation,
+                    society: eventSociety,
+                    dateTime: eventDateTime,
+                  );
+                  print(newEvent.toString());
+                },
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                  side: BorderSide(color: Color(0xff808080), width: 1),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: const Text("Login")),
           ),
         ],
       ),
@@ -125,7 +170,8 @@ class EventCreateState extends State<EventCreate> {
 }
 
 class DatePicker extends StatefulWidget {
-  const DatePicker({super.key});
+  final Function(DateTime) onDateSelected;
+  const DatePicker({super.key, required this.onDateSelected});
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -145,6 +191,7 @@ class _DatePickerState extends State<DatePicker> {
     setState(() {
       selectedDate = pickedDate;
     });
+    widget.onDateSelected(selectedDate!);
   }
 
   @override
