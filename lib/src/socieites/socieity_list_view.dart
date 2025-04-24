@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/socieites/example_socs.dart';
 
 import 'socieity_details_view.dart';
 import 'society.dart';
@@ -7,18 +8,12 @@ import 'society.dart';
 class SocietyItemListView extends StatelessWidget {
   const SocietyItemListView({
     super.key,
-    this.items = const [
-      Socieity(1, "Aviation", 'assets/images/societies/aviation.png', true),
-      Socieity(2, "IT Soc", 'assets/images/societies/IT.png', true),
-      Socieity(3, "Pool", 'assets/images/societies/pool.jpg', false),
-      Socieity(5, "Pool", 'assets/images/societies/pool.jpg', false),
-      Socieity(4, "Jolly Roger", 'assets/images/societies/JR.png', true)
-    ],
+    List<Socieity>? items,
   });
 
   static const routeName = '/societies';
 
-  final List<Socieity> items;
+  final List<Socieity> items = socieities;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +81,7 @@ class SocietyItemListView extends StatelessWidget {
                       Navigator.pushNamed(
                         context,
                         SocietyItemDetailsView.routeName,
-                        arguments: {'society': item, 'e': 'a'},
+                        arguments: {'society': item},
                       );
                     }),
               ],
