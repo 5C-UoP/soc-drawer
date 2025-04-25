@@ -1,0 +1,1 @@
+ C:\\Users\\overa\\IdeaProjects\\soc-drawer\\.dart_tool\\flutter_build\\93128c33ac624964c3e5a6715772bd15\\native_assets.yaml: 
