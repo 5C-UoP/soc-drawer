@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socdrawer/src/settings/settings_view.dart';
 import 'package:socdrawer/src/socieites/socieity_details_view.dart';
 import 'package:socdrawer/src/socieites/socieity_list_view.dart';
-
+import 'package:socdrawer/src/bottomNavBar.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 
@@ -12,7 +12,7 @@ void main() async {
   final settingsController = SettingsController(SettingsService());
 
   // Load the user's preferred theme while the splash screen is displayed.
-  // This prevents a sudden theme change when the app is first displayed.
+  // This prevents a   theme change when the app is first displayed.
   await settingsController.loadSettings();
   //await windowManager.ensureInitialized();
 
@@ -24,23 +24,25 @@ void main() async {
   // SettingsView.
   runApp(MaterialApp(
     restorationScopeId: 'app',
-    home: SocietyItemListView(),
-    onGenerateRoute: (RouteSettings routeSettings) {
-      return MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          switch (routeSettings.name) {
-            case SettingsView.routeName:
-              return SettingsView(controller: settingsController);
-            case SocietyItemDetailsView.routeName:
-              final args = routeSettings.arguments
-                  as Map<String, dynamic>?; // Extract the arguments
-              return SocietyItemDetailsView(args: args);
-            case SocietyItemListView.routeName:
-            default:
-              return SocietyItemListView();
-          }
-        },
-      );
-    },
+    home: BottomNavBar(),
+    onGenerateRoute: (RouteSettings routeSettings) {},
+    // home: SocietyItemListView(),
+    // onGenerateRoute: (RouteSettings routeSettings) {
+    //   return MaterialPageRoute<void>(
+    //     builder: (BuildContext context) {
+    //       switch (routeSettings.name) {
+    //         case SettingsView.routeName:
+    //           return SettingsView(controller: settingsController);
+    //         case SocietyItemDetailsView.routeName:
+    //           final args = routeSettings.arguments
+    //               as Map<String, dynamic>?; // Extract the arguments
+    //           return SocietyItemDetailsView(args: args);
+    //         case SocietyItemListView.routeName:
+    //         default:
+    //           return SocietyItemListView();
+    //       }
+    //     },
+    //   );
+    // },
   ));
 }

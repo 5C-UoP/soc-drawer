@@ -3,6 +3,8 @@ import 'package:socdrawer/src/event.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'event.dart';
 
+DateTime eventDateTime = DateTime.now();
+
 class EventCreate extends StatefulWidget {
   const EventCreate({super.key});
 
@@ -17,7 +19,6 @@ class EventCreateState extends State<EventCreate> {
   String eventDescription = '';
   String eventLocation = '';
   String eventSociety = '';
-  DateTime eventDateTime = DateTime.now();
   bool repeatChecked = false;
   final TextEditingController eventDescController = TextEditingController();
   final TextEditingController eventNameController = TextEditingController();
@@ -82,7 +83,7 @@ class EventCreateState extends State<EventCreate> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: Align(
-              alignment: const Alignment(0.0, -0.5),
+              alignment: const Alignment(0.0, -0.4),
               child: TextField(
                 controller: eventNameController,
                 obscureText: false,
@@ -109,7 +110,7 @@ class EventCreateState extends State<EventCreate> {
           Padding(
             padding: const EdgeInsets.all(20),
             child: Align(
-              alignment: const Alignment(0.0, -0.2),
+              alignment: const Alignment(0.0, -0.0),
               child: TextField(
                 controller: eventDescController,
                 obscureText: false,
@@ -140,28 +141,29 @@ class EventCreateState extends State<EventCreate> {
           Align(
             alignment: const Alignment(0, 0.8),
             child: MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    eventName = eventNameController.text;
-                    eventDescription = eventDescController.text;
-                    // eventDateTime =
-                  });
-                  final newEvent = Event(
-                    name: eventName,
-                    description: eventDescription,
-                    location: eventLocation,
-                    society: eventSociety,
-                    dateTime: eventDateTime,
-                  );
-                  print(newEvent.toString());
-                },
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.zero,
-                  side: BorderSide(color: Color(0xff808080), width: 1),
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: const Text("Login")),
+              onPressed: () {
+                setState(() {
+                  eventName = eventNameController.text;
+                  eventDescription = eventDescController.text;
+                  eventLocation = "Location";
+                  eventSociety = "Society";
+                });
+                final newEvent = Event(
+                  name: eventName,
+                  description: eventDescription,
+                  location: eventLocation,
+                  society: eventSociety,
+                  dateTime: eventDateTime,
+                );
+                print(newEvent.toString());
+              },
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide(color: Color(0xff808080), width: 1),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: const Text("Create Event"),
+            ),
           ),
         ],
       ),
@@ -190,8 +192,9 @@ class _DatePickerState extends State<DatePicker> {
 
     setState(() {
       selectedDate = pickedDate;
+      eventDateTime = selectedDate!;
     });
-    widget.onDateSelected(selectedDate!);
+    widget.onDateSelected(selectedDate!);x
   }
 
   @override
