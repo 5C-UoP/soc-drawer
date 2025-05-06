@@ -16,4 +16,4 @@ A flutter application for students to view what their upcoming socieities are up
 
 ## Getting Started
 
-Our documentation (including setup instructions) is available at [https://socdrawer.readthedocs.io/en/latest/].
+Our documentation (including setup instructions) is available at [our ReadTheDocs](https://socdrawer.readthedocs.io/en/latest/).

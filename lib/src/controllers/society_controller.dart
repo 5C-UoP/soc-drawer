@@ -1,4 +1,4 @@
-import 'package:socdrawer/src/socieites/society.dart';
+import 'package:socdrawer/src/models/society.dart';
 
 const socieities = [
   Socieity(
