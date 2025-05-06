@@ -1,9 +1,11 @@
+import '../models/society.dart';
+
 class Event {
   final String name;
   final String? description;
   final DateTime dateTime;
   final String location;
-  final String society;
+  final Socieity society;
 
   Event({
     required this.name,
@@ -14,5 +16,6 @@ class Event {
   });
 
   @override
-  String toString() => '$society event: $name on ${dateTime.toLocal()} at $location';
+  String toString() =>
+      '$society event: $name on ${dateTime.toLocal()} at $location';
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/event.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'event.dart';
+import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/models/event.dart';
+import 'package:socdrawer/src/models/society.dart';
 
 DateTime eventDateTime = DateTime.now();
 
@@ -18,7 +18,7 @@ class EventCreateState extends State<EventCreate> {
   String eventName = '';
   String eventDescription = '';
   String eventLocation = '';
-  String eventSociety = '';
+  late Socieity eventSociety;
   bool repeatChecked = false;
   final TextEditingController eventDescController = TextEditingController();
   final TextEditingController eventNameController = TextEditingController();
@@ -146,13 +146,13 @@ class EventCreateState extends State<EventCreate> {
                   eventName = eventNameController.text;
                   eventDescription = eventDescController.text;
                   eventLocation = "Location";
-                  eventSociety = "Society";
+                  eventSociety = socieities[0];
                 });
                 final newEvent = Event(
                   name: eventName,
                   description: eventDescription,
                   location: eventLocation,
-                  society: eventSociety,
+                  society: eventSociety!,
                   dateTime: eventDateTime,
                 );
                 print(newEvent.toString());
@@ -194,7 +194,7 @@ class _DatePickerState extends State<DatePicker> {
       selectedDate = pickedDate;
       eventDateTime = selectedDate!;
     });
-    widget.onDateSelected(selectedDate!);x
+    widget.onDateSelected(selectedDate!);
   }
 
   @override

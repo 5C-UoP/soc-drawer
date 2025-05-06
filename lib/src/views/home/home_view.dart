@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/eventsView.dart';
-import 'package:socdrawer/src/socieites/socieity_list_view.dart';
+import 'package:socdrawer/src/views/eventsView.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'event.dart';
+import '../../models/event.dart';
 
 class CalendarView extends StatefulWidget {
   @override
@@ -22,18 +21,6 @@ class CalendarViewState extends State<CalendarView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Calendar'),
-        actions: [
-          // --- TEMPORARY BACK BUTTON TO GO BACK TO TEMPLATE ---
-          IconButton(
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SocietyItemListView()),
-                );
-              },
-              icon: const Icon(Icons.arrow_back))
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

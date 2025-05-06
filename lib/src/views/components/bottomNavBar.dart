@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/calendarView.dart';
-import 'package:socdrawer/src/event_create.dart';
-import 'package:socdrawer/src/eventsView.dart';
-import 'package:socdrawer/src/socieites/socieity_list_view.dart';
+import 'package:socdrawer/src/views/events/event_create_view.dart';
+import 'package:socdrawer/src/views/events/events_view.dart';
+import 'package:socdrawer/src/views/home/home_view.dart';
+import 'package:socdrawer/src/views/socieites/socieities_list_view.dart';
 // import 'package:socdrawer/src/settings/settings_view.dart';
 // import 'package:socdrawer/src/socieites/socieity_details_view.dart';
 
@@ -10,17 +10,19 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  _BottomNavBarState createState() {
+    return _BottomNavBarState();
+  }
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  int _currentIndex = 0;
+  int _currentIndex = 0; // Home page by defualt
 
   final List<Widget> _screens = [
-    SocietyItemListView(),
+    const SocietyItemListView(),
     CalendarView(),
     EventsView(),
-    EventCreate(),
+    const EventCreate(),
   ];
 
   @override
@@ -31,6 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children: _screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -39,16 +42,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
         },
         items: const [
           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Societies',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.details),
+            icon: Icon(Icons.event_note),
             label: 'Events',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Calendar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.details),

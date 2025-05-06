@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/settings/settings_view.dart';
-import 'package:socdrawer/src/socieites/socieity_details_view.dart';
-import 'package:socdrawer/src/socieites/socieity_list_view.dart';
-import 'package:socdrawer/src/bottomNavBar.dart';
-import 'src/settings/settings_controller.dart';
-import 'src/settings/settings_service.dart';
+import 'package:socdrawer/src/app.dart';
+
+import 'src/controllers/settings_controller.dart';
+import 'src/views/settings/settings_service.dart';
 
 void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
@@ -22,27 +20,5 @@ void main() async {
   // Run the app and pass in the SettingsController. The app listens to the
   // SettingsController for changes, then passes it further down to the
   // SettingsView.
-  runApp(MaterialApp(
-    restorationScopeId: 'app',
-    home: BottomNavBar(),
-    onGenerateRoute: (RouteSettings routeSettings) {},
-    // home: SocietyItemListView(),
-    // onGenerateRoute: (RouteSettings routeSettings) {
-    //   return MaterialPageRoute<void>(
-    //     builder: (BuildContext context) {
-    //       switch (routeSettings.name) {
-    //         case SettingsView.routeName:
-    //           return SettingsView(controller: settingsController);
-    //         case SocietyItemDetailsView.routeName:
-    //           final args = routeSettings.arguments
-    //               as Map<String, dynamic>?; // Extract the arguments
-    //           return SocietyItemDetailsView(args: args);
-    //         case SocietyItemListView.routeName:
-    //         default:
-    //           return SocietyItemListView();
-    //       }
-    //     },
-    //   );
-    // },
-  ));
+  runApp(SocDrawer(settingsController: settingsController));
 }
