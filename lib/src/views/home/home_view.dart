@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/views/eventsView.dart';
+import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../models/event.dart';
