@@ -1,0 +1,3 @@
+- events dont work
+- aviation event doesnt show up under aviation soc 
+- ui on create events is busted
