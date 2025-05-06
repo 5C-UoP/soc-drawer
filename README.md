@@ -1,6 +1,6 @@
 # Socdrawer
 
-A flutter application for students to view what their upcoming socieities are up to. This repository houses the frontend logic for the app.
+A flutter application for students to view what their upcoming societies are up to. This repository houses the frontend logic for the app.
 
 ## Contributions
 
