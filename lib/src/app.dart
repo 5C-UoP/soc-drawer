@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:socdrawer/src/views/components/bottomNavBar.dart';
 
-import 'calendarView.dart';
-import 'settings/settings_controller.dart';
-import 'settings/settings_view.dart';
-import 'socieites/socieity_details_view.dart';
-import 'socieites/socieity_list_view.dart';
+import 'controllers/settings_controller.dart';
+import 'views/settings/settings_view.dart';
+import 'views/socieites/socieities_details_view.dart';
+import 'views/socieites/socieities_list_view.dart';
 
 /// The Widget that configures your application.
-class MyApp extends StatelessWidget {
-  const MyApp({
+class SocDrawer extends StatelessWidget {
+  const SocDrawer({
     super.key,
     required this.settingsController,
   });
@@ -72,11 +72,13 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
                   case SocietyItemDetailsView.routeName:
-                  // return const SocietyItemDetailsView();
+                    return SocietyItemDetailsView(
+                      args: routeSettings.arguments as Map<String, dynamic>?,
+                    );
                   case SocietyItemListView.routeName:
+                    return const SocietyItemListView();
                   default:
-                    // return SocietyItemListView();
-                    return CalendarView();
+                    return const BottomNavBar();
                 }
               },
             );
