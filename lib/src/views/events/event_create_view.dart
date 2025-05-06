@@ -201,7 +201,7 @@ class _DatePickerState extends State<DatePicker> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      spacing: 20,
+      //spacing: 20,
       children: <Widget>[
         Text(
           selectedDate != null

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:socdrawer/src/controllers/society_controller.dart';
 import 'package:socdrawer/src/models/event.dart';
+import 'event_view_expanded.dart';
 
 class EventsView extends StatelessWidget {
   final List<Event> events = [
@@ -36,6 +37,12 @@ class EventsView extends StatelessWidget {
                     trailing: const Icon(Icons.arrow_forward),
                     onTap: () {
                       // --- OPEN EVENT DETAILS ---
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EventsViewExpanded(event: event),
+                        ),
+                      );
                     },
                   ),
                 );
