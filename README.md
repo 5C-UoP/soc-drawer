@@ -1,29 +1,19 @@
-# socdrawer
+# Socdrawer
 
-A new Flutter project.
+A flutter application for students to view what their upcoming socieities are up to. This repository houses the frontend logic for the app.
+
+## Contributions
+
+| Name     | Student ID | GitHub Username | Contribution (%) |
+|----------|------------|-----------------|------------------|
+| Nataniel | up2178807  | natsworkspace   | 20               |
+| Farid    | up2115719  | Up2115719       | 0                |
+| William  | up2213265  | W-OV            | 20               |
+| Marie    | up2246633  | sevmern         | 20               |
+| Sam      | up2198694  | wotanut         | 20               |
+| Matt     | up2110727  | ebmatt          | 20               |
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/to/state-management-sample).
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Assets
-
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
-
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/to/resolution-aware-images).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter apps](https://flutter.dev/to/internationalization).
+Our documentation (including setup instructions) is available at [https://socdrawer.readthedocs.io/en/latest/].
