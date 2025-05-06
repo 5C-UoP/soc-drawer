@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
                   // return const SocietyItemDetailsView();
                   case SocietyItemListView.routeName:
                   default:
-                    return SocietyItemListView();
+                    // return SocietyItemListView();
                     return CalendarView();
                 }
               },

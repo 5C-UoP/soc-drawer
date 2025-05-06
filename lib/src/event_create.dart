@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:socdrawer/src/event.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'event.dart';
 
 DateTime eventDateTime = DateTime.now();
 
@@ -194,7 +192,7 @@ class _DatePickerState extends State<DatePicker> {
       selectedDate = pickedDate;
       eventDateTime = selectedDate!;
     });
-    widget.onDateSelected(selectedDate!);x
+    widget.onDateSelected(selectedDate!);
   }
 
   @override
