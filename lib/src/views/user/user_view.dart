@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/controllers/user_controller.dart';
 import 'package:socdrawer/src/models/user.dart';
 import 'package:socdrawer/src/views/components/socieity_card.dart';
+import 'package:socdrawer/src/views/user/login_view.dart';
 
 class UserProfilePage extends StatelessWidget {
   UserProfilePage({super.key});
 
-  final User user = User(
-    name: 'John',
-    surename: 'Doe',
-    email: 'john.doe@example.com',
-    year: 2023,
-    comitteeSocieties: [socieities[0], socieities[1]],
-    societies: [socieities[3]],
-  );
+  final User user = getLoggedInUser()!;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +58,11 @@ class UserProfilePage extends StatelessWidget {
                       const SizedBox(height: 24),
                       ElevatedButton.icon(
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Logged out')),
+                          logoutUser();
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            Login.routeName,
+                            (Route<dynamic> route) => false,
                           );
                         },
                         icon: const Icon(Icons.logout),
