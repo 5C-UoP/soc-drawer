@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/controllers/event_controller.dart';
+import 'package:socdrawer/src/controllers/user_controller.dart';
 import 'package:socdrawer/src/models/user.dart';
+import 'package:socdrawer/src/views/components/event_card.dart';
 import 'package:socdrawer/src/views/events/event_create_view.dart';
 import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,6 +10,8 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../models/event.dart';
 
 class CalendarView extends StatefulWidget {
+  const CalendarView({super.key});
+
   @override
   CalendarViewState createState() => CalendarViewState();
 }
@@ -17,17 +21,9 @@ class CalendarViewState extends State<CalendarView> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
 
-  final Map<DateTime, List<Event>> events = {};
+  // final Map<DateTime, List<Event>> events = {};
 
-  final User user = User(
-    name: 'John',
-    surename: 'Doe',
-    email: 'john.doe@example.com',
-    year: 2023,
-    // comitteeSocieties: [],
-    comitteeSocieties: [socieities[0], socieities[1]],
-    societies: [socieities[2]],
-  );
+  final User user = getLoggedInUser()!;
 
   @override
   Widget build(BuildContext context) {
@@ -79,6 +75,35 @@ class CalendarViewState extends State<CalendarView> {
                     _calendarFormat = format;
                   });
                 },
+                eventLoader: (day) {
+                  return getEventsByDate(day);
+                },
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, day, events) {
+                    if (events.isNotEmpty) {
+                      return Positioned(
+                        bottom: 4,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                              events.length > 3 ? 3 : events.length, (index) {
+                            return Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 1.0),
+                              width: 6,
+                              height: 6,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.purple, // Color of the dot
+                              ),
+                            );
+                          }),
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
 
                 // --- CALENDAR STYLE ---
 
@@ -92,11 +117,17 @@ class CalendarViewState extends State<CalendarView> {
             if (user.comitteeSocieties.isNotEmpty)
               ElevatedButton(
                 child: const Text('Add Event'),
-                onPressed: () {
-                  Navigator.pushNamed(
+                onPressed: () async {
+                  final newEvent = await Navigator.push(
                     context,
-                    EventCreate.routeName,
+                    MaterialPageRoute(builder: (_) => EventCreate()),
                   );
+
+                  if (newEvent != null && newEvent is Event) {
+                    setState(() {
+                      // events
+                    });
+                  }
                 },
               ),
           ],
@@ -142,6 +173,13 @@ class CalendarViewState extends State<CalendarView> {
                         ),
                       ],
                     ),
+                    Column(
+                      children: getEventsByDate(selectedDay).map((event) {
+                        return EventCard(
+                          event: event,
+                        );
+                      }).toList(),
+                    )
                   ]),
             ));
       },
