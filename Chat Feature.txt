@@ -1,0 +1,29 @@
+dependencies:
+  flutter:
+    sdk: flutter
+  stream_chat_flutter: ^8.0.0
+
+final client = StreamChatClient('YOUR_API_KEY');
+await client.connectUser(
+  User(id: 'user-id'),
+  'USER_TOKEN',
+);
+
+
+StreamChat(
+  client: client,
+  child: MaterialApp(
+    home: StreamChannel(
+      channel: channel,
+      child: Scaffold(
+        appBar: StreamChannelHeader(),
+        body: Column(
+          children: [
+            Expanded(child: StreamMessageListView()),
+            StreamMessageInput(),
+          ],
+        ),
+      ),
+    ),
+  ),
+);
