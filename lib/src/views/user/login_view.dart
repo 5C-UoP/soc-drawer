@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/controllers/user_controller.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,8 +13,13 @@ class Login extends StatefulWidget {
 }
 
 class LoginState extends State<Login> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    logoutUser();
+
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
@@ -33,8 +39,6 @@ class LoginState extends State<Login> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              //This widget will be replaced with logo?
-
               const Align(
                 alignment: Alignment(0.0, -0.9),
                 child: Text(
@@ -52,7 +56,7 @@ class LoginState extends State<Login> {
               Align(
                 alignment: const Alignment(0.0, -0.3),
                 child: TextField(
-                  controller: TextEditingController(),
+                  controller: emailController,
                   obscureText: false,
                   textAlign: TextAlign.start,
                   maxLines: 1,
@@ -78,7 +82,7 @@ class LoginState extends State<Login> {
                       borderSide:
                           const BorderSide(color: Color(0xff000000), width: 1),
                     ),
-                    hintText: "Username:",
+                    hintText: "Email:",
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
@@ -94,7 +98,7 @@ class LoginState extends State<Login> {
                 ),
               ),
               TextField(
-                controller: TextEditingController(),
+                controller: passwordController,
                 obscureText: true,
                 textAlign: TextAlign.start,
                 maxLines: 1,
@@ -125,7 +129,26 @@ class LoginState extends State<Login> {
                 // Login Button
 
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // get the username and password, if they don't exist then show a snackbar error
+                    final email = emailController.text;
+                    final password = passwordController.text;
+
+                    // attempt the login
+                    bool attempt = login(email, password);
+
+                    if (attempt) {
+                      Navigator.pushNamed(context, '');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              'Login failed. Please check your credentials.'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    }
+                  },
                   color: Color(0xffffffff),
                   elevation: 0,
                   shape: const RoundedRectangleBorder(
