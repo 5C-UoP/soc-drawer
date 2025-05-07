@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/controllers/event_controller.dart';
+import 'package:socdrawer/src/views/components/event_card.dart';
 import 'package:socdrawer/src/views/components/social_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -96,9 +98,19 @@ class SocietyItemDetailsView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SingleChildScrollView(
+                  SingleChildScrollView(
                     child: Center(
-                      child: Text("This society has no events yet :("),
+                      child: getEventsBySocieity(soc).isEmpty
+                          ? const Text("This society has no events yet :(")
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: getEventsBySocieity(soc).length,
+                              itemBuilder: (context, index) {
+                                final event = getEventsBySocieity(soc)[index];
+                                return EventCard(event: event);
+                              },
+                            ),
                     ),
                   ),
                   SingleChildScrollView(
