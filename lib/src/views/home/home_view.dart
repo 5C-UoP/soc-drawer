@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/models/user.dart';
+import 'package:socdrawer/src/views/events/event_create_view.dart';
 import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -16,6 +19,16 @@ class CalendarViewState extends State<CalendarView> {
 
   final Map<DateTime, List<Event>> events = {};
 
+  final User user = User(
+    name: 'John',
+    surename: 'Doe',
+    email: 'john.doe@example.com',
+    year: 2023,
+    // comitteeSocieties: [],
+    comitteeSocieties: [socieities[0], socieities[1]],
+    societies: [socieities[2]],
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +38,7 @@ class CalendarViewState extends State<CalendarView> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          spacing: 20.0,
           children: [
             Container(
               // --- CALENDAR CONTAINER BOX ---
@@ -74,7 +88,17 @@ class CalendarViewState extends State<CalendarView> {
                   shape: BoxShape.circle,
                 )),
               ),
-            )
+            ),
+            if (user.comitteeSocieties.isNotEmpty)
+              ElevatedButton(
+                child: const Text('Add Event'),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    EventCreate.routeName,
+                  );
+                },
+              ),
           ],
         ),
       ),

@@ -5,17 +5,18 @@ class User {
   final String surename;
   final String email;
   final int year;
-  final Socieity society;
+  final List<Socieity> societies;
+  final List<Socieity> comitteeSocieties;
 
-  User({
-    required this.name,
-    required this.surename,
-    required this.email,
-    required this.year,
-    required this.society,
-  });
+  User(
+      {required this.name,
+      required this.surename,
+      required this.email,
+      required this.year,
+      required this.societies,
+      required this.comitteeSocieties});
 
   @override
   String toString() =>
-      'Full name: $name $surename\nEmail: $email\nStudent year: $year\nSociety: $society';
+      'Full name: $name $surename\nEmail: $email\nStudent year: $year\nSociety: $societies\nCommittee: $comitteeSocieties';
 }

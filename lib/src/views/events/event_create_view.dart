@@ -8,6 +8,8 @@ DateTime eventDateTime = DateTime.now();
 class EventCreate extends StatefulWidget {
   const EventCreate({super.key});
 
+  static const routeName = '/event/create';
+
   @override
   State<StatefulWidget> createState() {
     return EventCreateState();

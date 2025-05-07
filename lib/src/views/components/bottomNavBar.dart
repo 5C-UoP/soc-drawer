@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/views/events/event_create_view.dart';
 import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:socdrawer/src/views/home/home_view.dart';
 import 'package:socdrawer/src/views/socieites/socieities_list_view.dart';
+import 'package:socdrawer/src/views/user/user_view.dart';
 // import 'package:socdrawer/src/settings/settings_view.dart';
 // import 'package:socdrawer/src/socieites/socieity_details_view.dart';
 
@@ -19,10 +19,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0; // Home page by defualt
 
   final List<Widget> _screens = [
-    const SocietyItemListView(),
     CalendarView(),
+    const SocietyItemListView(),
     EventsView(),
-    const EventCreate(),
+    UserProfilePage(),
   ];
 
   @override
@@ -54,8 +54,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'Events',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.details),
-            label: 'Create Event',
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),
