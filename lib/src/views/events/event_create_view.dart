@@ -1,216 +1,214 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/controllers/event_controller.dart';
+import 'package:socdrawer/src/controllers/user_controller.dart';
 import 'package:socdrawer/src/models/event.dart';
 import 'package:socdrawer/src/models/society.dart';
-
-DateTime eventDateTime = DateTime.now();
+import 'package:socdrawer/src/models/user.dart';
 
 class EventCreate extends StatefulWidget {
-  const EventCreate({super.key});
+  static const routeName = '/event/create';
+  final User user;
+
+  EventCreate({super.key}) : user = getLoggedInUser()!;
 
   @override
-  State<StatefulWidget> createState() {
-    return EventCreateState();
-  }
+  State<EventCreate> createState() => _EventCreateState();
 }
 
-class EventCreateState extends State<EventCreate> {
-  String eventName = '';
-  String eventDescription = '';
-  String eventLocation = '';
-  late Socieity eventSociety;
-  bool repeatChecked = false;
-  final TextEditingController eventDescController = TextEditingController();
-  final TextEditingController eventNameController = TextEditingController();
-  // final newEvent = Event();
+class _EventCreateState extends State<EventCreate> {
+  final _nameController = TextEditingController();
+  final _descController = TextEditingController();
+  final _locationController = TextEditingController();
+
+  late Socieity _selectedSociety;
+  DateTime _eventDate = DateTime.now();
+  bool _repeatWeekly = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedSociety = widget.user.comitteeSocieties.first;
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _descController.dispose();
+    _locationController.dispose();
+    super.dispose();
+  }
+
+  void _createEvent() {
+    final name = _nameController.text.trim();
+    final desc = _descController.text.trim();
+    final location = _locationController.text.trim();
+
+    if (name.isEmpty || location.isEmpty) {
+      _showSnackbar('Event name and location are required.', Colors.red);
+      return;
+    }
+
+    final event = Event(
+      name: name,
+      description: desc,
+      location: location,
+      society: _selectedSociety,
+      dateTime: _eventDate,
+    );
+
+    createEvent(event);
+    Navigator.pop(context,
+        event); // return a value to indivate that the state should update
+    _showSnackbar('Event successfully created.', Colors.green);
+  }
+
+  void _showSnackbar(String message, Color color) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: color,
+      ),
+    );
+  }
+
+  Future<void> _pickDate() async {
+    final picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+    if (picked != null) setState(() => _eventDate = picked);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
       appBar: AppBar(
-        elevation: 4,
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xff3a57e8),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
-        title: const Text("Event Creation"),
-        leading: const Icon(
-          Icons.arrow_back,
-          color: Color(0xff212435),
-          size: 24,
+        title: const Text("Create Event"),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            _buildTextInput("Event Name", _nameController, maxLength: 50),
+            _buildTextInput("Event Description", _descController,
+                maxLines: 5, maxLength: 200),
+            _buildDatePicker(),
+            _buildTextInput("Location", _locationController),
+            _buildRepeatCheckbox(),
+            _buildSocietyDropdown(),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: _createEvent,
+              icon: const Icon(Icons.event),
+              label: const Text("Create Event"),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)),
+              ),
+            )
+          ],
         ),
       ),
-      body: Stack(
-        alignment: Alignment.topLeft,
-        children: [
-          const Align(
-            alignment: Alignment(0.0, -0.9),
-            child: Text(
-              "Create Event:",
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.clip,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 20,
-              ),
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0.0, -0.7),
-            child: DatePicker(
-              onDateSelected: (DateTime selectedDate) {
-                setState(() {
-                  eventDateTime = selectedDate;
-                });
-              },
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0.1, 0.6),
-            child: Checkbox(
-              value: repeatChecked,
-              splashRadius: 20,
-              onChanged: (bool? value) {
-                setState(() {
-                  repeatChecked = value!;
-                });
-              },
-            ),
-          ),
-          // Name TextField
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Align(
-              alignment: const Alignment(0.0, -0.4),
-              child: TextField(
-                controller: eventNameController,
-                obscureText: false,
-                textAlign: TextAlign.left,
-                maxLines: 1,
-                maxLength: 50,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                    borderSide:
-                        const BorderSide(color: Color(0xff000000), width: 1),
-                  ),
-                  hintText: "Name of Event:",
-                  filled: true,
-                  fillColor: Color(0xfff2f2f2),
-                  isDense: false,
-                  contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-                ),
-              ),
-            ),
-          ),
+    );
+  }
 
-          // Description TextField
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: Align(
-              alignment: const Alignment(0.0, -0.0),
-              child: TextField(
-                controller: eventDescController,
-                obscureText: false,
-                textAlign: TextAlign.left,
-                maxLines: 5,
-                maxLength: 200,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4.0),
-                    borderSide:
-                        const BorderSide(color: Color(0xff000000), width: 1),
-                  ),
-                  hintText: "Brief Description of Event:",
-                  filled: true,
-                  fillColor: Color(0xfff2f2f2),
-                  isDense: false,
-                  contentPadding: EdgeInsets.fromLTRB(12, 8, 12, 8),
-                ),
-              ),
-            ),
+  Widget _buildTextInput(String label, TextEditingController controller,
+      {int maxLines = 1, int? maxLength}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+        const SizedBox(height: 8),
+        TextField(
+          controller: controller,
+          maxLines: maxLines,
+          maxLength: maxLength,
+          decoration: InputDecoration(
+            hintText: "Enter $label".toLowerCase(),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            filled: true,
+            fillColor: Colors.grey[100],
           ),
-          const Align(
-            alignment: Alignment(0, 0.6),
+        )
+      ]),
+    );
+  }
+
+  Widget _buildDatePicker() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        children: [
+          const Text("Event Date",
+              style: TextStyle(fontWeight: FontWeight.w600)),
+          const Spacer(),
+          OutlinedButton(
+            onPressed: _pickDate,
             child: Text(
-              "Repeat Weekly?",
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, 0.8),
-            child: MaterialButton(
-              onPressed: () {
-                setState(() {
-                  eventName = eventNameController.text;
-                  eventDescription = eventDescController.text;
-                  eventLocation = "Location";
-                  eventSociety = socieities[0];
-                });
-                final newEvent = Event(
-                  name: eventName,
-                  description: eventDescription,
-                  location: eventLocation,
-                  society: eventSociety!,
-                  dateTime: eventDateTime,
-                );
-                print(newEvent.toString());
-              },
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
-                side: BorderSide(color: Color(0xff808080), width: 1),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: const Text("Create Event"),
+              '${_eventDate.day}/${_eventDate.month}/${_eventDate.year}',
             ),
           ),
         ],
       ),
     );
   }
-}
 
-class DatePicker extends StatefulWidget {
-  final Function(DateTime) onDateSelected;
-  const DatePicker({super.key, required this.onDateSelected});
-
-  @override
-  State<DatePicker> createState() => _DatePickerState();
-}
-
-class _DatePickerState extends State<DatePicker> {
-  DateTime? selectedDate;
-
-  Future<void> _selectDate() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2024),
-      lastDate: DateTime(2026),
+  Widget _buildRepeatCheckbox() {
+    return Column(
+      children: [
+        CheckboxListTile(
+          title: const Text("Repeat Weekly?"),
+          value: _repeatWeekly,
+          onChanged: (val) => setState(() => _repeatWeekly = val ?? false),
+          contentPadding: EdgeInsets.zero,
+        ),
+        if (_repeatWeekly)
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.blue),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.info_outline, color: Colors.blue),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    "This event will repeat weekly for the next 4 weeks.",
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          ),
+      ],
     );
-
-    setState(() {
-      selectedDate = pickedDate;
-      eventDateTime = selectedDate!;
-    });
-    widget.onDateSelected(selectedDate!);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      //spacing: 20,
-      children: <Widget>[
-        Text(
-          selectedDate != null
-              ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
-              : 'No date selected',
-        ),
-        OutlinedButton(
-            onPressed: _selectDate, child: const Text('Select Date')),
-      ],
+  Widget _buildSocietyDropdown() {
+    return DropdownButtonFormField<String>(
+      value: _selectedSociety.name,
+      items: widget.user.comitteeSocieties
+          .map((s) => DropdownMenuItem(value: s.name, child: Text(s.name)))
+          .toList(),
+      onChanged: (newValue) {
+        final society =
+            widget.user.comitteeSocieties.firstWhere((s) => s.name == newValue);
+        setState(() => _selectedSociety = society);
+      },
+      decoration: InputDecoration(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+        filled: true,
+        fillColor: Colors.grey[100],
+      ),
     );
   }
 }

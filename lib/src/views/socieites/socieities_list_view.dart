@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/views/components/socieity_card.dart';
 
 import '../../models/society.dart';
-import 'socieities_details_view.dart';
 
 /// Displays a list of Socieities.
 class SocietyItemListView extends StatelessWidget {
@@ -56,23 +56,7 @@ class SocietyItemListView extends StatelessWidget {
                 !item.joined && !listedAllJoined
                     ? const Divider()
                     : const SizedBox.shrink(),
-                ListTile(
-                    title: Text(item.name),
-                    leading: CircleAvatar(
-                      // Display the Flutter Logo image asset.
-                      foregroundImage: AssetImage(item.icon),
-                    ),
-                    trailing: item.joined ? null : const Text("Join"),
-                    onTap: () {
-                      // Navigate to the details page. If the user leaves and returns to
-                      // the app after it has been killed while running in the
-                      // background, the navigation stack is restored.
-                      Navigator.pushNamed(
-                        context,
-                        SocietyItemDetailsView.routeName,
-                        arguments: {'society': item},
-                      );
-                    }),
+                SocieityCard(society: item)
               ],
             );
           },

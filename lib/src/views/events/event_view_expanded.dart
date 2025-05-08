@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../models/event.dart';
-import 'package:url_launcher/url_launcher.dart'; 
-//import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../models/event.dart';
+//import 'package:webview_flutter/webview_flutter.dart';
 
 class EventsViewExpanded extends StatelessWidget {
   final Event event;
-  static const containerBackgroundColour = Color.fromARGB(255, 233, 233, 233); 
+  static const containerBackgroundColour = Color.fromARGB(255, 233, 233, 233);
   const EventsViewExpanded({Key? key, required this.event}) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class EventsViewExpanded extends StatelessWidget {
               ),
             ),
 
-            // --- DATE TIME --- 
+            // --- DATE TIME ---
             Container(
               margin: const EdgeInsets.symmetric(vertical: 6),
               padding: const EdgeInsets.all(12),
@@ -49,7 +49,11 @@ class EventsViewExpanded extends StatelessWidget {
                 children: [
                   const Icon(Icons.calendar_today),
                   const SizedBox(width: 10),
-                  Expanded(child: Text(event.dateTime.toLocal().toString())),
+                  Expanded(
+                    child: Text(
+                      '${event.dateTime.toLocal().day}/${event.dateTime.toLocal().month}/${event.dateTime.toLocal().year} at ${event.dateTime.toLocal().hour.toString().padLeft(2, '0')}:${event.dateTime.toLocal().minute.toString().padLeft(2, '0')}',
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -73,10 +77,12 @@ class EventsViewExpanded extends StatelessWidget {
 
             GestureDetector(
               onTap: () async {
-                final googleMapsUrl = 'https://www.google.com/maps/search/?api=1&query=${event.location}';
+                final googleMapsUrl =
+                    'https://www.google.com/maps/search/?api=1&query=${event.location}';
 
                 if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
-                  await launchUrl(Uri.parse(googleMapsUrl), mode: LaunchMode.externalApplication);
+                  await launchUrl(Uri.parse(googleMapsUrl),
+                      mode: LaunchMode.externalApplication);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Could not open Google Maps')),
@@ -91,8 +97,6 @@ class EventsViewExpanded extends StatelessWidget {
                 ),
               ),
             ),
-
-
 
             // --- DESCRIPTION ---
             Container(
@@ -112,22 +116,20 @@ class EventsViewExpanded extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         event.description != null
-                          ? Text(
-                              event.description!,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            )
-                          : const Text(
-                              '(No more details)',
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
+                            ? Text(
+                                event.description!,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              )
+                            : const Text(
+                                '(No more details)',
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-    
-
           ],
         ),
       ),

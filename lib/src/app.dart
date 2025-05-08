@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:socdrawer/src/controllers/user_controller.dart';
 import 'package:socdrawer/src/views/components/bottomNavBar.dart';
+import 'package:socdrawer/src/views/events/event_create_view.dart';
+import 'package:socdrawer/src/views/user/login_view.dart';
 
 import 'controllers/settings_controller.dart';
 import 'views/settings/settings_view.dart';
@@ -68,6 +71,10 @@ class SocDrawer extends StatelessWidget {
             return MaterialPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
+                if (getLoggedInUser() == null) {
+                  return const Login();
+                }
+
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
@@ -77,6 +84,8 @@ class SocDrawer extends StatelessWidget {
                     );
                   case SocietyItemListView.routeName:
                     return const SocietyItemListView();
+                  case EventCreate.routeName:
+                    return EventCreate();
                   default:
                     return const BottomNavBar();
                 }
