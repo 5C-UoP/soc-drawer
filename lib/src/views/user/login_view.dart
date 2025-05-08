@@ -138,7 +138,11 @@ class LoginState extends State<Login> {
                     bool attempt = login(email, password);
 
                     if (attempt) {
-                      Navigator.pushNamed(context, '');
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/',
+                        (Route<dynamic> route) => false,
+                      );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
