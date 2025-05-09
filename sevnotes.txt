@@ -1,3 +1,17 @@
-- events dont work
+
 - aviation event doesnt show up under aviation soc 
 - ui on create events is busted
+
+
+to make sure time is not in past
+
+if (dateTime.isBefore(DateTime.now())) {
+  throw ArgumentError('Date cannot be in the past');
+}
+
+
+to make sure event names are over 50 characters
+
+if (name.length > 50) {
+  throw ArgumentError('Event name must be 50 characters or fewer');
+}

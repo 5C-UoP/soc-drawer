@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:socdrawer/src/controllers/user_controller.dart';
-import 'package:socdrawer/src/views/components/bottomNavBar.dart';
+import 'package:socdrawer/src/views/components/bottom_navbar.dart';
 import 'package:socdrawer/src/views/events/event_create_view.dart';
 import 'package:socdrawer/src/views/user/login_view.dart';
 

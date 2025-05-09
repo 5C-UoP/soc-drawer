@@ -23,6 +23,7 @@ class _EventCreateState extends State<EventCreate> {
   late Socieity _selectedSociety;
   DateTime _eventDate = DateTime.now();
   bool _repeatWeekly = false;
+  bool _needsPayment = false;
 
   @override
   void initState() {
@@ -97,6 +98,7 @@ class _EventCreateState extends State<EventCreate> {
             _buildDatePicker(),
             _buildTextInput("Location", _locationController),
             _buildRepeatCheckbox(),
+            _buildPaidCheckbox(),
             _buildSocietyDropdown(),
             const SizedBox(height: 24),
             ElevatedButton.icon(
@@ -182,6 +184,42 @@ class _EventCreateState extends State<EventCreate> {
                 Expanded(
                   child: Text(
                     "This event will repeat weekly for the next 4 weeks.",
+                    style: TextStyle(
+                        color: Colors.blue, fontWeight: FontWeight.w500),
+                  ),
+                )
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildPaidCheckbox() {
+    return Column(
+      children: [
+        CheckboxListTile(
+          title: const Text("Requires payment?"),
+          value: _needsPayment,
+          onChanged: (val) => setState(() => _needsPayment = val ?? false),
+          contentPadding: EdgeInsets.zero,
+        ),
+        if (_needsPayment)
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.blue),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.info_outline, color: Colors.blue),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    "This event now requires payment on union page",
                     style: TextStyle(
                         color: Colors.blue, fontWeight: FontWeight.w500),
                   ),

@@ -16,6 +16,8 @@ class EventsView extends StatelessWidget {
 
   final List<Event> events = getAllEvents();
 
+  EventsView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
