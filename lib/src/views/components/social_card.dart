@@ -83,7 +83,7 @@ class DiscordCard extends SocialCard {
   }) : super(
           icon: const Icon(Icons.discord, size: 40, color: Colors.blue),
           title: "Discord",
-          url: "https://discord.com/invite/${code}",
+          url: "https://discord.com/invite/$code",
           bg: Colors.blue.shade100,
         );
 }
@@ -99,7 +99,7 @@ class InstagramCard extends SocialCard {
             color: Colors.white,
           ),
           title: "Instagram",
-          url: "https://instagram.com/${code}",
+          url: "https://instagram.com/$code",
           bg: const Color(0xFFC13584),
         );
 }
@@ -115,7 +115,7 @@ class WhatsappCard extends SocialCard {
             color: Colors.white,
           ),
           title: "Whtasapp",
-          url: "https://chat.whatsapp.com/${code}",
+          url: "https://chat.whatsapp.com/$code",
           bg: const Color(0xFF25D366),
         );
 }
@@ -131,14 +131,14 @@ class EmailCard extends SocialCard {
               color: Colors.white,
             ),
             title: "Email",
-            url: "mailto:${code}",
+            url: "mailto:$code",
             bg: Colors.orange.shade300,
             isMail: true);
 }
 
 // I expect very few if not no societies to have a website. BUT the it society does have one :)
 class WebsiteCard extends SocialCard {
-  WebsiteCard({
+  const WebsiteCard({
     super.key,
     required super.code,
   }) : super(

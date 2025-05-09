@@ -1,6 +1,6 @@
 import 'package:socdrawer/src/models/society.dart';
 
-const socieities = [
+const societies = [
   Socieity(
     1,
     "Aviation",

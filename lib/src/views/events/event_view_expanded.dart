@@ -7,7 +7,7 @@ import '../../models/event.dart';
 class EventsViewExpanded extends StatelessWidget {
   final Event event;
   static const containerBackgroundColour = Color.fromARGB(255, 233, 233, 233);
-  const EventsViewExpanded({Key? key, required this.event}) : super(key: key);
+  const EventsViewExpanded({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {

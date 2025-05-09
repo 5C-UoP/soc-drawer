@@ -13,7 +13,7 @@ class SocietyItemListView extends StatelessWidget {
 
   static const routeName = '/societies';
 
-  final List<Socieity> items = socieities;
+  final List<Socieity> items = societies;
 
   @override
   Widget build(BuildContext context) {

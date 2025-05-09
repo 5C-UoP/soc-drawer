@@ -10,8 +10,8 @@ List<User> users = [
     email: 'john.doe@myport.ac.uk',
     year: 2023,
     // comitteeSocieties: [],
-    comitteeSocieties: [socieities[0], socieities[1]],
-    societies: [socieities[2]], password: 'test',
+    comitteeSocieties: [societies[0], societies[1]],
+    societies: [societies[2]], password: 'test',
   ),
   User(
     name: 'John',
@@ -19,7 +19,7 @@ List<User> users = [
     email: 'example.user@myport.ac.uk',
     year: 2023,
     comitteeSocieties: [],
-    societies: [socieities[0], socieities[1], socieities[2]],
+    societies: [societies[0], societies[1], societies[2]],
     password: 'test',
   ),
   User(
@@ -27,12 +27,7 @@ List<User> users = [
     surename: 'admin',
     email: 'admin@myport.ac.uk',
     year: 2023,
-    comitteeSocieties: [
-      socieities[0],
-      socieities[1],
-      socieities[2],
-      socieities[3]
-    ],
+    comitteeSocieties: [societies[0], societies[1], societies[2], societies[3]],
     societies: [],
     password: 'admin',
   )

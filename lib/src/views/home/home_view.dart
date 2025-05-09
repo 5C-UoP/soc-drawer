@@ -50,7 +50,7 @@ class CalendarViewState extends State<CalendarView> {
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
 
               // --- CALENDAR ---
               child: TableCalendar(

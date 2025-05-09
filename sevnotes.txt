@@ -1,3 +1,22 @@
-- events dont work
 - aviation event doesnt show up under aviation soc 
 - ui on create events is busted
+- events dont work
+
+to make sure time is not in past
+
+if (dateTime.isBefore(DateTime.now())) {
+  throw ArgumentError('Date cannot be in the past');
+}
+
+
+to make sure event names are over 50 characters
+
+if (name.length > 50) {
+  throw ArgumentError('Event name must be 50 characters or fewer');
+}
+
+^^ same for the desciption length
+
+time should be in hh:mm format and not be above 24:59 in either field
+
+date should be mm dd and it should not be above 12 32 in either field. Please also add exceptions for months with 30 days and febuary weirdness (don't bother with leapyyear fuckery though)

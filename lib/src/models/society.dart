@@ -1,13 +1,19 @@
 /// A class that represents a society model
 class Socieity {
   const Socieity(
-      this.id, this.name, this.icon, this.joined, this.committee, this.code,
-      {this.description = "This society has no description",
-      this.discordCode,
-      this.instagramHandle,
-      this.website,
-      this.mail,
-      this.whatsapp});
+    this.id,
+    this.name,
+    this.icon,
+    this.joined,
+    this.committee,
+    this.code, {
+    this.description = "This society has no description",
+    this.discordCode,
+    this.instagramHandle,
+    this.website,
+    this.mail,
+    this.whatsapp,
+  });
 
   final int id;
   final String name;

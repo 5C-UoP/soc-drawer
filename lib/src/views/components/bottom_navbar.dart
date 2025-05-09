@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:socdrawer/src/controllers/user_controller.dart';
 import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:socdrawer/src/views/home/home_view.dart';
 import 'package:socdrawer/src/views/socieites/socieities_list_view.dart';
@@ -20,7 +19,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0; // Home page by defualt
 
   final List<Widget> _screens = [
-    CalendarView(),
+    const CalendarView(),
     const SocietyItemListView(),
     EventsView(),
     UserProfilePage(),
@@ -28,9 +27,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    if (getLoggedInUser() == null) {
-      Navigator.pushNamed(context, 'login');
-    }
+    // if (getLoggedInUser() == null) {
+    //   Navigator.pushNamed(context, 'login');
+    // }
 
     return Scaffold(
       body: IndexedStack(
