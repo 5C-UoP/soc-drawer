@@ -17,5 +17,5 @@ class Event {
 
   @override
   String toString() =>
-      '$society event: $name on ${dateTime.toLocal()} at $location';
+      'Society: ${society.name} Name: $name on ${dateTime.toLocal()} at $location';
 }
