@@ -90,7 +90,7 @@ void main() {
           description: 'bright festive treats',
           location: 'USPU',
           society: societies[0],
-          dateTime: DateTime(2025, 13, 26, 18, 0),
+          dateTime: DateTime(2025, 0, 0, 18, 0),
         ),
         throwsA(isA<ArgumentError>()),
       );
