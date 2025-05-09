@@ -1,7 +1,6 @@
-
 - aviation event doesnt show up under aviation soc 
 - ui on create events is busted
-
+- events dont work
 
 to make sure time is not in past
 
