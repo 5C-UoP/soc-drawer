@@ -1,19 +1,16 @@
-# Socdrawer
+# chat_feature1
 
-A flutter application for students to view what their upcoming societies are up to. This repository houses the frontend logic for the app.
-
-## Contributions
-
-| Name     | Student ID | GitHub Username | Contribution (%) |
-|----------|------------|-----------------|------------------|
-| Nataniel | up2178807  | natsworkspace   | 20               |
-| Farid    | up2115719  | Up2115719       | 0                |
-| William  | up2213265  | W-OV            | 20               |
-| Marie    | up2246633  | sevmern         | 20               |
-| Sam      | up2198694  | wotanut         | 20               |
-| Matt     | up2110727  | ebmatt          | 20               |
-
+A new Flutter project.
 
 ## Getting Started
 
-Our documentation (including setup instructions) is available at [our ReadTheDocs](https://socdrawer.readthedocs.io/en/latest/).
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
