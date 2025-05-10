@@ -24,6 +24,8 @@ void main() {
         location: 'USPU',
         society: societies[0],
         dateTime: DateTime(2025, 12, 25, 18, 0),
+        isRepeating: false,
+        needsPayment: false,
       );
 
       expect(event.name, 'Christmas event');
@@ -40,6 +42,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2005, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -52,6 +56,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -66,6 +72,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -78,6 +86,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 25, 61),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -91,6 +101,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 0, 0, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );

@@ -55,9 +55,25 @@ class _EventCreateState extends State<EventCreate> {
       location: location,
       society: _selectedSociety,
       dateTime: _eventDate,
+      isRepeating: _repeatWeekly,
+      needsPayment: _needsPayment,
     );
 
     createEvent(event);
+    if (_repeatWeekly) {
+      for (int i = 1; i < 4; i++) {
+        final newEvent = Event(
+          name: name,
+          description: desc,
+          location: location,
+          society: _selectedSociety,
+          isRepeating: _repeatWeekly,
+          needsPayment: _needsPayment,
+          dateTime: _eventDate.add(Duration(days: i * 7)),
+        );
+        createEvent(newEvent);
+      }
+    }
     Navigator.pop(context,
         event); // return a value to indivate that the state should update
     _showSnackbar('Event successfully created.', Colors.green);

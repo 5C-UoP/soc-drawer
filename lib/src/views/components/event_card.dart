@@ -73,6 +73,30 @@ class EventCard extends StatelessWidget {
                   ),
                 ],
               ),
+              Row(
+                children: [
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      event.isRepeating
+                          ? "Repeats each week"
+                          : "One-time event",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      event.needsPayment ? "Paid event" : "Free event",
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                ],
+              ),
               const SizedBox(height: 4),
               Row(
                 children: [

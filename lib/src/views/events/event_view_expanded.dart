@@ -58,7 +58,7 @@ class EventsViewExpanded extends StatelessWidget {
               ),
             ),
 
-            // --- LOCATION ---
+            // --- isRepeating ---
             Container(
               margin: const EdgeInsets.symmetric(vertical: 6),
               padding: const EdgeInsets.all(12),
@@ -68,9 +68,29 @@ class EventsViewExpanded extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.location_on),
                   const SizedBox(width: 10),
-                  Expanded(child: Text(event.location)),
+                  Expanded(
+                    child: Text(
+                      event.isRepeating ? 'Repeats weekly' : 'Does not repeat',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // --- isPaid ---
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: containerBackgroundColour,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 10),
+                  Expanded(
+                      child: Text(
+                          event.needsPayment ? 'Paid event' : 'Free event')),
                 ],
               ),
             ),
