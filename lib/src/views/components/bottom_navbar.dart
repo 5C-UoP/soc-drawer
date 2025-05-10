@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/controllers/event_controller.dart';
 import 'package:socdrawer/src/views/events/events_view.dart';
 import 'package:socdrawer/src/views/home/home_view.dart';
 import 'package:socdrawer/src/views/socieites/socieities_list_view.dart';
@@ -17,20 +18,23 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0; // Home page by defualt
+  final GlobalKey<EventsViewState> _eventsViewKey =
+      GlobalKey<EventsViewState>();
+  final List<Widget> _screens = [];
 
-  final List<Widget> _screens = [
-    const CalendarView(),
-    const SocietyItemListView(),
-    EventsView(),
-    UserProfilePage(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _screens.addAll([
+      const CalendarView(),
+      const SocietyItemListView(),
+      EventsView(key: _eventsViewKey),
+      UserProfilePage(),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    // if (getLoggedInUser() == null) {
-    //   Navigator.pushNamed(context, 'login');
-    // }
-
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -42,6 +46,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            if (index == 2) {
+              // refreshes events when pressing onto event screen
+              _eventsViewKey.currentState?.refreshEvents();
+            }
           });
         },
         items: const [

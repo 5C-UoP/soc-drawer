@@ -72,6 +72,7 @@ class _EventCreateState extends State<EventCreate> {
           dateTime: _eventDate.add(Duration(days: i * 7)),
         );
         createEvent(newEvent);
+        setState(() {});
       }
     }
     Navigator.pop(context,
