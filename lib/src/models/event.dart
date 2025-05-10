@@ -6,6 +6,8 @@ class Event {
   final DateTime dateTime;
   final String location;
   final Socieity society;
+  final bool isRepeating;
+  final bool needsPayment;
 
   Event({
     required this.name,
@@ -13,6 +15,8 @@ class Event {
     required this.dateTime,
     required this.location,
     required this.society,
+    required this.isRepeating,
+    required this.needsPayment,
   }) {
     if (dateTime.isBefore(DateTime.now())) {
       throw ArgumentError('Date cannot be in the past');
