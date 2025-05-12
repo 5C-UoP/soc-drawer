@@ -75,6 +75,11 @@ class EventCard extends StatelessWidget {
               ),
               Row(
                 children: [
+                  const Icon(
+                    Icons.repeat,
+                    size: 16,
+                    color: Colors.grey,
+                  ),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
@@ -88,6 +93,11 @@ class EventCard extends StatelessWidget {
               ),
               Row(
                 children: [
+                  const Icon(
+                    Icons.currency_pound,
+                    size: 16,
+                    color: Colors.grey,
+                  ),
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(

@@ -49,15 +49,21 @@ class _EventCreateState extends State<EventCreate> {
       return;
     }
 
-    final event = Event(
-      name: name,
-      description: desc,
-      location: location,
-      society: _selectedSociety,
-      dateTime: _eventDate,
-      isRepeating: _repeatWeekly,
-      needsPayment: _needsPayment,
-    );
+    late Event event;
+    try {
+      event = Event(
+        name: name,
+        description: desc,
+        location: location,
+        society: _selectedSociety,
+        dateTime: _eventDate,
+        isRepeating: _repeatWeekly,
+        needsPayment: _needsPayment,
+      );
+    } catch (e) {
+      _showSnackbar(e.toString(), Colors.red);
+      return;
+    }
 
     createEvent(event);
     if (_repeatWeekly) {

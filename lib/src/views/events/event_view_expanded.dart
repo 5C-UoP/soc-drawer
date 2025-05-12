@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socdrawer/src/views/components/socieity_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/event.dart';
@@ -21,21 +22,22 @@ class EventsViewExpanded extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             // --- SOCIETY ---
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 6),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: containerBackgroundColour,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  const Icon(Icons.group),
-                  const SizedBox(width: 10),
-                  Expanded(child: Text(event.society.name)),
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: const EdgeInsets.symmetric(vertical: 6),
+            //   padding: const EdgeInsets.all(12),
+            //   decoration: BoxDecoration(
+            //     color: containerBackgroundColour,
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       const Icon(Icons.group),
+            //       const SizedBox(width: 10),
+            //       Expanded(child: Text(event.society.name)),
+            //     ],
+            //   ),
+            // ),
+            SocieityCard(society: event.society),
 
             // --- DATE TIME ---
             Container(
@@ -68,6 +70,7 @@ class EventsViewExpanded extends StatelessWidget {
               ),
               child: Row(
                 children: [
+                  const Icon(Icons.repeat),
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
@@ -87,6 +90,7 @@ class EventsViewExpanded extends StatelessWidget {
               ),
               child: Row(
                 children: [
+                  const Icon(Icons.currency_pound),
                   const SizedBox(width: 10),
                   Expanded(
                       child: Text(
