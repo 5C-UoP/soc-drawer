@@ -66,7 +66,6 @@ class _EventCreateState extends State<EventCreate> {
     }
 
     createEvent(event);
-
     if (_repeatWeekly) {
       for (int i = 1; i < 4; i++) {
         final newEvent = Event(
@@ -96,19 +95,14 @@ class _EventCreateState extends State<EventCreate> {
     );
   }
 
-  Future<void> _pickDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  Future<void> _pickDate() async {
+    final picked = await showDatePicker(
       context: context,
-      initialDate: _eventDate,
+      initialDate: DateTime.now().add(const Duration(days: 1)),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    print(picked);
-    if (picked != null && picked != _eventDate) {
-      setState(() {
-        _eventDate = picked;
-      });
-    }
+    if (picked != null) setState(() => _eventDate = picked);
   }
 
   @override
@@ -178,9 +172,9 @@ class _EventCreateState extends State<EventCreate> {
               style: TextStyle(fontWeight: FontWeight.w600)),
           const Spacer(),
           OutlinedButton(
-            onPressed: () => _pickDate(context),
+            onPressed: _pickDate,
             child: Text(
-              '${_eventDate.day}/${_eventDate.month}/${_eventDate.year} at ${_eventDate.hour}:${_eventDate.minute}',
+              '${_eventDate.day}/${_eventDate.month}/${_eventDate.year}',
             ),
           ),
         ],
