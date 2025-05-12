@@ -49,17 +49,24 @@ class _EventCreateState extends State<EventCreate> {
       return;
     }
 
-    final event = Event(
-      name: name,
-      description: desc,
-      location: location,
-      society: _selectedSociety,
-      dateTime: _eventDate,
-      isRepeating: _repeatWeekly,
-      needsPayment: _needsPayment,
-    );
+    late Event event;
+    try {
+      event = Event(
+        name: name,
+        description: desc,
+        location: location,
+        society: _selectedSociety,
+        dateTime: _eventDate,
+        isRepeating: _repeatWeekly,
+        needsPayment: _needsPayment,
+      );
+    } catch (e) {
+      _showSnackbar(e.toString(), Colors.red);
+      return;
+    }
 
     createEvent(event);
+
     if (_repeatWeekly) {
       for (int i = 1; i < 4; i++) {
         final newEvent = Event(
@@ -89,14 +96,19 @@ class _EventCreateState extends State<EventCreate> {
     );
   }
 
-  Future<void> _pickDate() async {
-    final picked = await showDatePicker(
+  Future<void> _pickDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now().add(const Duration(days: 1)),
+      initialDate: _eventDate,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
-    if (picked != null) setState(() => _eventDate = picked);
+    print(picked);
+    if (picked != null && picked != _eventDate) {
+      setState(() {
+        _eventDate = picked;
+      });
+    }
   }
 
   @override
@@ -166,9 +178,9 @@ class _EventCreateState extends State<EventCreate> {
               style: TextStyle(fontWeight: FontWeight.w600)),
           const Spacer(),
           OutlinedButton(
-            onPressed: _pickDate,
+            onPressed: () => _pickDate(context),
             child: Text(
-              '${_eventDate.day}/${_eventDate.month}/${_eventDate.year}',
+              '${_eventDate.day}/${_eventDate.month}/${_eventDate.year} at ${_eventDate.hour}:${_eventDate.minute}',
             ),
           ),
         ],

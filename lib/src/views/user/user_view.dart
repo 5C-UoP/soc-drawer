@@ -33,25 +33,28 @@ class UserProfilePage extends StatelessWidget {
                           const Icon(Icons.person,
                               size: 64, color: Colors.grey),
                           const SizedBox(width: 16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${user.name} ${user.surename}',
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${user.name} ${user.surename}',
+                                  style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                user.email,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
+                                const SizedBox(height: 4),
+                                Text(
+                                  overflow: TextOverflow.ellipsis,
+                                  user.email,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
