@@ -6,6 +6,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:socdrawer/src/controllers/event_controller.dart';
 import 'package:socdrawer/src/controllers/society_controller.dart';
 import 'package:socdrawer/src/models/event.dart';
 
@@ -24,6 +25,8 @@ void main() {
         location: 'USPU',
         society: societies[0],
         dateTime: DateTime(2025, 12, 25, 18, 0),
+        isRepeating: false,
+        needsPayment: false,
       );
 
       expect(event.name, 'Christmas event');
@@ -40,6 +43,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2005, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -52,6 +57,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -66,6 +73,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -78,6 +87,8 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 12, 25, 25, 61),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
@@ -91,10 +102,28 @@ void main() {
           location: 'USPU',
           society: societies[0],
           dateTime: DateTime(2025, 0, 0, 18, 0),
+          isRepeating: false,
+          needsPayment: false,
         ),
         throwsA(isA<ArgumentError>()),
       );
     });
+
+    test('isRepeating is true and repeats for 4 weeks', () {
+      final event = Event(
+        name: 'Weekly meeting',
+        description: 'weekly meeting',
+        location: 'USPU',
+        society: societies[0],
+        dateTime: DateTime(2025, 12, 25, 18, 0),
+        isRepeating: true,
+        needsPayment: false,
+      );
+
+      expect(event.isRepeating, true);
+      expect((events.length), 4);
+    });
+
     //ALL TESTS REQUIRING EVENT TO HAVE A NULL VALUE ARE INVALID
     //AUTOMATED TESTS FOR THESE CANNOT BE RUN
   }); //end of  event model
