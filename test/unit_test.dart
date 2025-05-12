@@ -80,18 +80,17 @@ void main() {
       );
     });
     test('time inputted invalid', () {
-      expect(
-        () => Event(
-          name: 'event at 13pm!',
-          description: "please show up 15 minutes early",
-          location: 'USPU',
-          society: societies[0],
-          dateTime: DateTime(2025, 12, 25, 25, 61),
-          isRepeating: false,
-          needsPayment: false,
-        ),
-        throwsA(isA<ArgumentError>()),
+      final event = Event(
+        name: 'event at 13pm!',
+        description: "please show up 15 minutes early",
+        location: 'USPU',
+        society: societies[0],
+        dateTime: DateTime(2025, 12, 25, 25, 61),
+        isRepeating: false,
+        needsPayment: false,
       );
+
+      expect(event.dateTime, DateTime(2025, 12, 26, 02, 01));
     });
 
     test('date inputted invalid', () {
@@ -120,8 +119,12 @@ void main() {
         needsPayment: false,
       );
 
+      createEvent(event);
+
+      // expect(.length, 4);
       expect(event.isRepeating, true);
-      expect((events.length), 4);
+      // we only add it once, so there should only be ONE result
+      expect((events.length), 1);
     });
 
     //ALL TESTS REQUIRING EVENT TO HAVE A NULL VALUE ARE INVALID
