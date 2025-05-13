@@ -35,6 +35,22 @@ void main() {
       expect(event.society.name, 'Aviation');
       expect(event.dateTime, DateTime(2025, 12, 25, 18, 0));
     });
+
+    test('get events', () {
+      final event = Event(
+        name: 'Christmas event',
+        description: 'a totally normal and good event',
+        location: 'USPU',
+        society: societies[0],
+        dateTime: DateTime(2025, 12, 25, 18, 0),
+        isRepeating: false,
+        needsPayment: false,
+      );
+
+      createEvent(event);
+      final events = getAllEvents();
+      expect(events[0], event);
+    });
     test('date is in past', () {
       expect(
         () => Event(
@@ -121,10 +137,10 @@ void main() {
 
       createEvent(event);
 
-      // expect(.length, 4);
       expect(event.isRepeating, true);
       // we only add it once, so there should only be ONE result
-      expect((events.length), 1);
+      // however we add a second event above so there should be 2
+      expect((events.length), 2);
     });
 
     //ALL TESTS REQUIRING EVENT TO HAVE A NULL VALUE ARE INVALID
