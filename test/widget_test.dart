@@ -7,12 +7,27 @@ import 'package:socdrawer/src/views/components/event_card.dart' as event;
 
 Future<void> loginAdmin(WidgetTester tester) async {
   await tester.pumpAndSettle();
-
+  expect(find.textContaining('Login'), findsWidgets);
   // Log in if needed
   await tester.enterText(find.byType(TextField).at(0), 'admin@myport.ac.uk');
   await tester.enterText(find.byType(TextField).at(1), 'admin');
   await tester.tap(find.text('Login'));
   await tester.pumpAndSettle();
+}
+
+Future<void> logout(WidgetTester tester) async {
+  final profileFinder = find.text('Profile');
+  final logoutFinder = find.text('Logout');
+
+  if (profileFinder.evaluate().isNotEmpty) {
+    await tester.tap(profileFinder);
+    await tester.pumpAndSettle();
+
+    if (logoutFinder.evaluate().isNotEmpty) {
+      await tester.tap(logoutFinder);
+      await tester.pumpAndSettle();
+    }
+  }
 }
 
 void main() {
@@ -48,6 +63,27 @@ void main() {
         await loginAdmin(tester);
 
         expect(find.textContaining('My Calendar'), findsWidgets);
+        await logout(tester);
+      },
+    );
+
+    testWidgets(
+      "Checks logout functionality",
+      (WidgetTester tester) async {
+        app.main();
+        await tester.pumpAndSettle();
+        await loginAdmin(tester);
+
+        // Tap on the Profile button
+        await tester.tap(find.text('Profile'));
+        await tester.pumpAndSettle();
+
+        // Tap on the Logout button
+        await tester.tap(find.text('Logout'));
+        await tester.pumpAndSettle();
+
+        // Verify that the login screen is displayed
+        expect(find.textContaining('Login'), findsWidgets);
       },
     );
   });
