@@ -4,8 +4,6 @@ import 'package:socdrawer/src/models/society.dart';
 List<Event> events = [];
 
 List<Event> getAllEvents() {
-  print(events.length);
-  print(events);
   return events;
 }
 
