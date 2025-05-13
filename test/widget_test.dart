@@ -1,26 +1,52 @@
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:socdrawer/src/views/components/bottom_navbar.dart' as bottom_navbar;
-import 'package:socdrawer/src/views/components/event_card.dart' as event;
 import 'package:socdrawer/main.dart' as app;
+import 'package:socdrawer/src/controllers/society_controller.dart';
+import 'package:socdrawer/src/models/event.dart';
+import 'package:socdrawer/src/views/components/event_card.dart' as event;
 
 void main() {
-  testWidgets('Renders default screen', (WidgetTester tester) async {
+  testWidgets('Renders Login screen', (WidgetTester tester) async {
     app.main(); // this runs runApp
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('Society'), findsWidgets); // Adjust based on your UI
+    expect(find.textContaining('Login'),
+        findsWidgets); // Checks to see if it opens the login page
   });
-    testWidgets('Checks navbar', (WidgetTester tester) async {
-    bottom_navbar.BottomNavBar(); // this runs runApp
+
+  // Should still be on login page
+  testWidgets('Checks incorrect login', (WidgetTester tester) async {
+    app.main(); // this runs runApp
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('Home'), findsWidgets); // Adjust based on your UI
+    expect(find.textContaining('Login'),
+        findsWidgets); // Checks to see if it opens the login page
+
+    await tester.enterText(find.byType(TextField).at(0), 'test@example.com');
+    await tester.enterText(find.byType(TextField).at(1), 'password123');
+
+    expect(find.textContaining('Login'), findsWidgets);
   });
-    testWidgets('Visible Events', (WidgetTester tester) async {
-    event.EventCard(); // this runs runApp
+
+  // Tests to make sure that our event card works
+  testWidgets('Visible Events', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: event.EventCard(
+          event: Event(
+            name: 'Christmas event',
+            description: 'a totally normal and good event',
+            location: 'USPU',
+            society: societies[0],
+            dateTime: DateTime(2025, 12, 25, 18, 0),
+            isRepeating: false,
+            needsPayment: true,
+          ),
+        ),
+      ),
+    ));
     await tester.pumpAndSettle();
 
-    expect(find.textContaining('Paid event'), findsWidgets); // Adjust based on your UI
+    expect(find.textContaining('Paid event'), findsWidgets);
   });
 }
